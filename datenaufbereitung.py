@@ -1,9 +1,6 @@
 import nltk
-import string
-import pandas as pd
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import CountVectorizer
 
 nltk.download('stopwords')
 german_stop_words = set(stopwords.words('german'))
