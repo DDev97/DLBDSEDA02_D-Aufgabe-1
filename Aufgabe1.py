@@ -82,7 +82,7 @@ plt.axis('off')
 plt.title('Themen-Analyse mit WordCloud', fontsize=50)
 plt.show()
 
-#LDA
+# Themenmodellierung mit LDA
 # Count Vectorisierung
 vectorizer = CountVectorizer()
 dtm = vectorizer.fit_transform(bereinigte_texte)
