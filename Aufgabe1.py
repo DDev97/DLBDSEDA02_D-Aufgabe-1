@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
 from wordcloud import WordCloud
 
 # Download der Stopwörter
@@ -81,7 +82,20 @@ plt.axis('off')
 plt.title('Themen-Analyse mit WordCloud', fontsize=50)
 plt.show()
 
+#LDA
+# Count Vectorisierung
+vectorizer = CountVectorizer()
+dtm = vectorizer.fit_transform(bereinigte_texte)
+# LDA Modell erstellen mit 10 Themen
+lda = LatentDirichletAllocation(n_components=10, random_state=42)
+# Modell trainieren
+lda_model = lda.fit(dtm)
 
-
-
-
+# 10 Themen ausgeben mit jeweils 10 Wörtern ausgeben
+feature_names = vectorizer.get_feature_names_out()
+print("\nGefundene Themen:")
+for topic_idx, topic in enumerate(lda.components_):
+    top_words_idx = topic.argsort()[:-10-1:-1]  # Top 10 Wörter
+    top_words = [feature_names[i] for i in top_words_idx]
+    print(f'Thema {topic_idx + 1}:')
+    print(', '.join(top_words))
